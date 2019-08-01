@@ -1,4 +1,5 @@
 <?php
+
 /*
  * PHP Techdegree Project 2: Build a Quiz App in PHP
  *
@@ -17,12 +18,42 @@
 
 // Include questions
 
+include('generate_questions.php');
+
+shuffle($questions);
+
+$score = 0;
+$currentQuestion = 1;
+
 // Keep track of which questions have been asked
+
+$askedQuestions = [];
 
 // Show which question they are on
 // Show random question
+
+function randomQuestion () {
+	global $questions, $askedQuestions;
+	
+	do { 
+		$index = rand(0, count($questions) -1 ); 
+	} while (
+		in_array($index, $askedQuestions)
+	);
+	array_push($askedQuestions, $index);
+	return $questions[$index];
+};
+
+$newQuestion = randomQuestion();
+
+
 // Shuffle answer buttons
 
+$answers = [$newQuestion["correctAnswer"],
+			$newQuestion["firstIncorrectAnswer"], 
+			$newQuestion["secondIncorrectAnswer"]];
+			
+shuffle($answers);
 
 // Toast correct and incorrect answers
 // Keep track of answers
