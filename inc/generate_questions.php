@@ -24,7 +24,7 @@ for ($i = 0; $i < 10; $i++) {
     $n = rand($questions[$i]["correctAnswer"] - 10,
               $questions[$i]["correctAnswer"] + 10);
   } while (
-    in_array($n, array($questions[$i]["correctAnswer"]))
+    $n === $questions[$i]["correctAnswer"]
   );
 
   $questions[$i]["firstIncorrectAnswer"] = $n;
@@ -33,8 +33,8 @@ for ($i = 0; $i < 10; $i++) {
     $n = rand($questions[$i]["correctAnswer"] - 10,
               $questions[$i]["correctAnswer"] + 10);
   } while (
-    in_array($n, array($questions[$i]["correctAnswer"],
-                       $questions[$i]["firstIncorrectAnswer"]))
+    $n === $questions[$i]["correctAnswer"] || 
+    $n === $questions[$i]["firstIncorrectAnswer"]
   );
 
   $questions[$i]["secondIncorrectAnswer"] = $n;
