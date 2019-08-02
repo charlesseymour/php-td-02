@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div id="quiz-box">
-			<?php if ($_SESSION['currentQuestion']) { ?>
+			<?php if ($_SESSION['currentQuestion'] < 11) { ?>
 				<p> <?php var_dump($_SESSION['askedQuestions']); ?></p>
 				<p class="breadcrumbs">Question <?php echo($_SESSION['currentQuestion']); ?> of 10</p>
 				<p class="quiz">What is <?php echo($newQuestion["leftAdder"] . " + " .

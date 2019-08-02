@@ -70,7 +70,7 @@ if ($_SESSION['currentQuestion'] < 10) {
 	$_SESSION['currentQuestion'] += 1;
 	
 } else {
-	$_SESSION['currentQuestion'] = null;
+	$_SESSION['currentQuestion'] = 11;
 }
 
 // Show score
