@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*
  * PHP Techdegree Project 2: Build a Quiz App in PHP
  *
@@ -22,8 +22,8 @@ include('generate_questions.php');
 
 shuffle($questions);
 
-$score = 0;
-$currentQuestion = 1;
+$_SESSION['score'] = 0;
+$_SESSION['currentQuestion'] = 1;
 
 // Keep track of which questions have been asked
 
@@ -34,9 +34,9 @@ $askedQuestions = [];
 
 function randomQuestion () {
 	global $questions, $askedQuestions;
-	
-	do { 
-		$index = rand(0, count($questions) -1 ); 
+
+	do {
+		$index = rand(0, count($questions) -1 );
 	} while (
 		in_array($index, $askedQuestions)
 	);
@@ -50,9 +50,9 @@ $newQuestion = randomQuestion();
 // Shuffle answer buttons
 
 $answers = [$newQuestion["correctAnswer"],
-			$newQuestion["firstIncorrectAnswer"], 
+			$newQuestion["firstIncorrectAnswer"],
 			$newQuestion["secondIncorrectAnswer"]];
-			
+
 shuffle($answers);
 
 // Toast correct and incorrect answers
