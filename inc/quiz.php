@@ -22,43 +22,55 @@ include('generate_questions.php');
 
 shuffle($questions);
 
-$_SESSION['score'] = 0;
-$_SESSION['currentQuestion'] = 1;
+if (!isset($_SESSION['score'])) {
+	$_SESSION['score'] = 0;
+}
+
+if (!isset($_SESSION['currentQuestion'])) {
+	$_SESSION['currentQuestion'] = 0;
+}
 
 // Keep track of which questions have been asked
 
-$askedQuestions = [];
+if (!isset($_SESSION['askedQuestions'])) {
+	$_SESSION['askedQuestions'] = [];
+}
+
 
 // Show which question they are on
 // Show random question
 
 function randomQuestion () {
-	global $questions, $askedQuestions;
-
+	global $questions;
 	do {
-		$index = rand(0, count($questions) -1 );
+		$index = rand(0, count($questions) -1);
 	} while (
-		in_array($index, $askedQuestions)
+		in_array($index, $_SESSION['askedQuestions'])
 	);
-	array_push($askedQuestions, $index);
+	array_push($_SESSION['askedQuestions'], $index);
 	return $questions[$index];
 };
 
-$newQuestion = randomQuestion();
+if ($_SESSION['currentQuestion'] < 10) {
+	$newQuestion = randomQuestion();
 
+	// Shuffle answer buttons
 
-// Shuffle answer buttons
+	$answers = [$newQuestion["correctAnswer"],
+				$newQuestion["firstIncorrectAnswer"],
+				$newQuestion["secondIncorrectAnswer"]];
 
-$answers = [$newQuestion["correctAnswer"],
-			$newQuestion["firstIncorrectAnswer"],
-			$newQuestion["secondIncorrectAnswer"]];
-
-shuffle($answers);
+	shuffle($answers);
 
 // Toast correct and incorrect answers
 // Keep track of answers
 // If all questions have been asked, give option to show score
 // else give option to move to next question
 
+	$_SESSION['currentQuestion'] += 1;
+	
+} else {
+	$_SESSION['currentQuestion'] = null;
+}
 
 // Show score
