@@ -36,6 +36,12 @@ if (!isset($_SESSION['askedQuestions'])) {
 	$_SESSION['askedQuestions'] = [];
 }
 
+// Check answer to previous question and increase score if correct
+if (isset($_POST['answer'])) {
+	if ($_POST['correctAnswer'] === $_POST['answer']) {
+		$_SESSION['score'] += 1;
+	}
+}
 
 // Show which question they are on
 // Show random question
