@@ -40,6 +40,9 @@ if (!isset($_SESSION['askedQuestions'])) {
 if (isset($_POST['answer'])) {
 	if ($_POST['correctAnswer'] === $_POST['answer']) {
 		$_SESSION['score'] += 1;
+		$toast = "Correct!";
+	} else {
+		$toast = "Incorrect";
 	}
 }
 

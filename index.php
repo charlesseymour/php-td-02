@@ -11,12 +11,17 @@
 <body>
     <div class="container">
         <div id="quiz-box">
+			<?php if (isset($toast)) { ?>
+					<p style="color: <?php if ($toast === "Correct!") { echo("green"); } else { echo("red"); } ?>">
+						<?php echo($toast); ?>
+					</p>
+			<?php } ?>
 			<?php if ($_SESSION['currentQuestion'] < 11) { ?>
+				
 				<p class="breadcrumbs">Question <?php echo($_SESSION['currentQuestion']); ?> of 10</p>
 				<p class="quiz">What is <?php echo($newQuestion["leftAdder"] . " + " .
 										$newQuestion["rightAdder"]); ?>?</p>
 				<form action="index.php" method="post">
-					<input type="hidden" name="id" value="0" />
 					<input type="hidden" name="correctAnswer" value="<?php echo($newQuestion['correctAnswer']); ?>" />
 					<input type="submit" class="btn" name="answer" value="<?php echo($answers[0]); ?>" />
 					<input type="submit" class="btn" name="answer" value="<?php echo($answers[1]); ?>" />
