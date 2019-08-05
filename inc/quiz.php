@@ -1,35 +1,21 @@
 <?php
 
 session_start();
+
+// If user clicked Play Again button, start over
 if (isset($_POST['restart'])) {
 	session_destroy();
 	header("location: index.php");
 	exit();
 }
-/*
- * PHP Techdegree Project 2: Build a Quiz App in PHP
- *
- * These comments are to help you get started.
- * You may split the file and move the comments around as needed.
- *
- * You will find examples of formating in the index.php script.
- * Make sure you update the index file to use this PHP script, and persist the users answers.
- *
- * For the questions, you may use:
- *  1. PHP array of questions
- *  2. json formated questions
- *  3. auto generate questions
- *
- */
 
-// Include questions
-
-
-
+// Import randomly generated questions
 include('generate_questions.php');
 
+// Randomly shuffle questions
 shuffle($questions);
 
+// define session variables if not already defined
 if (!isset($_SESSION['score'])) {
 	$_SESSION['score'] = 0;
 }
@@ -37,8 +23,6 @@ if (!isset($_SESSION['score'])) {
 if (!isset($_SESSION['currentQuestion'])) {
 	$_SESSION['currentQuestion'] = 0;
 }
-
-// Keep track of which questions have been asked
 
 if (!isset($_SESSION['askedQuestions'])) {
 	$_SESSION['askedQuestions'] = [];
@@ -54,9 +38,7 @@ if (isset($_POST['answer'])) {
 	}
 }
 
-// Show which question they are on
-// Show random question
-
+// define function to grab random question from questions array
 function randomQuestion () {
 	global $questions;
 	do {
@@ -68,26 +50,23 @@ function randomQuestion () {
 	return $questions[$index];
 };
 
+// if user is not on final question, get new question
 if ($_SESSION['currentQuestion'] < 10) {
 	$newQuestion = randomQuestion();
 
 	// Shuffle answer buttons
-
 	$answers = [$newQuestion["correctAnswer"],
 				$newQuestion["firstIncorrectAnswer"],
 				$newQuestion["secondIncorrectAnswer"]];
 
 	shuffle($answers);
 
-// Toast correct and incorrect answers
-// Keep track of answers
-// If all questions have been asked, give option to show score
-// else give option to move to next question
-
+	// increase current question index
 	$_SESSION['currentQuestion'] += 1;
 	
 } else {
+	// if user is on final question, increase current question index to 11
+	// so that no new questions are generated
 	$_SESSION['currentQuestion'] = 11;
 }
 
-// Show score
