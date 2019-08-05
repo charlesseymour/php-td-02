@@ -29,6 +29,9 @@
 				</form>
 			<?php } else { ?>
 				<p>Your score is: <?php echo($_SESSION['score']); ?>/10</p>
+				<form action="index.php" method="post">
+					<input type="submit" class="btn" name="restart" value="Play Again" />
+				</form>
 			<?php } ?>
         </div>
     </div>

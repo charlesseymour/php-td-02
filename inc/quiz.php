@@ -1,5 +1,11 @@
 <?php
+
 session_start();
+if (isset($_POST['restart'])) {
+	session_destroy();
+	header("location: index.php");
+	exit();
+}
 /*
  * PHP Techdegree Project 2: Build a Quiz App in PHP
  *
@@ -17,6 +23,8 @@ session_start();
  */
 
 // Include questions
+
+
 
 include('generate_questions.php');
 
